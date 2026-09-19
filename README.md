@@ -1,33 +1,44 @@
-# Mint Releases
+# Mint
 
-Public distribution repo for [Mint](https://github.com/makenode-vn/monorepo) desktop app
-binaries and the `tauri-plugin-updater` manifest (`latest.json`).
+![Latest release](https://img.shields.io/github/v/release/makenode-vn/mint-releases?label=phi%C3%AAn%20b%E1%BA%A3n%20hi%E1%BB%87n%20t%E1%BA%A1i)
+![Platforms](https://img.shields.io/badge/platform-Windows%20%7C%20macOS-blue)
 
-**No source code lives here — this repo only exists so Mint's auto-updater has somewhere
-public to fetch from.** Mint's source repo is private, and GitHub Release assets on a
-private repo return `404` to an unauthenticated request (verified directly). An installed
-copy of Mint, running on a user's machine with no GitHub credentials, can only ever check
-for updates against a public repo — hence this one. See
+**Mint** là ứng dụng báo giá gia công kỹ thuật số — thả file 3D (STL, OBJ, 3MF) vào, nhận báo
+giá ngay lập tức. Phát triển bởi **MakeNode**.
+
+*(Mint is a digital manufacturing quoting app — drop a 3D file, get an instant price.
+Developed by MakeNode.)*
+
+## Tải về (Download)
+
+Vào tab **[Releases](https://github.com/makenode-vn/mint-releases/releases)** của repo này,
+chọn bản mới nhất, tải file phù hợp với máy bạn:
+
+| Hệ điều hành | File cần tải |
+|---|---|
+| Windows | `.exe` (NSIS installer) |
+| macOS (Apple Silicon / M1 trở lên) | `.dmg` |
+
+> macOS hiện chưa có chữ ký Apple Developer ID, nên lần mở đầu tiên có thể bị Gatekeeper cảnh
+> báo "unidentified developer" — chuột phải vào app → **Open** để mở bình thường.
+
+## Cập nhật tự động (Auto-update)
+
+Mint tự kiểm tra bản mới mỗi khi mở app, và định kỳ sau đó — **nhưng không tự tải hay cài đặt
+gì nếu bạn chưa đồng ý**. Khi có bản mới, app sẽ hỏi bạn có muốn cập nhật không; nếu đồng ý,
+app tải về rồi hỏi lại lần nữa trước khi khởi động lại để áp dụng. Bạn luôn có thể chọn "Để
+sau" ở cả hai bước.
+
+Có thể kiểm tra cập nhật thủ công bất cứ lúc nào: mở Mint → menu **Help** → tab **About** →
+**Check for Updates**.
+
+Người dùng thử nghiệm nội bộ có thể bật kênh **Beta** ở Settings → Update Channel để nhận bản
+thử nghiệm sớm hơn (có thể kém ổn định hơn bản chính thức).
+
+---
+
+*Repo này chỉ chứa file cài đặt, không chứa mã nguồn — mã nguồn của Mint nằm ở một repo riêng
+tư khác. Dành cho developer: xem
 [ADR-007](https://github.com/makenode-vn/monorepo/blob/main/mint/docs/decisions/adr-007-ci-cd.md#update-2026-09-19-auto-update-windows--macos)
-in the source repo for the full design, and
-[`releasing.md`](https://github.com/makenode-vn/monorepo/blob/main/mint/docs/releasing.md)
-for the practical steps to cut a release.
-
-## What's here
-
-- **Releases tagged `vX.Y.Z`** (from `mint-release.yml`, triggered by pushing the source
-  repo's `release` branch) — the **stable** channel. Published as drafts first; a human
-  reviews and publishes.
-- **One release tagged `beta`** (from `mint-release-beta.yml`, manually triggered) — the
-  **beta / internal testing** channel. Always replaced in place on the next beta build, so
-  its manifest URL never changes.
-
-Each release carries, per platform, the installer/bundle plus a `.sig` file (minisign
-signature) and a shared `latest.json` manifest that `tauri-plugin-updater` reads.
-
-## Don't
-
-- Don't create or edit releases here by hand — CI owns this repo's releases. A manual
-  release with a mismatched `latest.json` shape will make the updater silently reject it.
-- Don't delete old stable releases — a user on a bad build may need to manually download
-  and reinstall the previous one (see ADR-007's rollback section).
+và [`releasing.md`](https://github.com/makenode-vn/monorepo/blob/main/mint/docs/releasing.md)
+để biết vì sao repo này tồn tại và cách phát hành bản mới.*
